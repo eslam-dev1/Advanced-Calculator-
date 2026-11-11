@@ -63,6 +63,23 @@ fun ScientificKeypad(
     val buttonSpacing = 6.dp
     val buttonShape = RoundedCornerShape(14.dp)
 
+    // Scientific theme colors strictly matching reference preview
+    val cyanKeyBg = Color(0xFF0E1A26)
+    val cyanKeyBorder = Color(0xFF00E5FF)
+    val cyanKeyText = Color(0xFF00E5FF)
+
+    val purpleKeyBg = Color(0xFF181126)
+    val purpleKeyBorder = Color(0xFFAB47BC)
+    val purpleKeyText = Color(0xFFCE93D8)
+
+    val tealKeyBg = Color(0xFF0E1F24)
+    val tealKeyBorder = Color(0xFF00BFA5)
+    val tealKeyText = Color(0xFF64FFDA)
+
+    val blueKeyBg = Color(0xFF0F1B2A)
+    val blueKeyBorder = Color(0xFF00B0FF)
+    val blueKeyText = Color(0xFF80D8FF)
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -77,8 +94,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = "inv",
-                backgroundColor = if (isInv) activeBg else surfaceColor,
-                contentColor = if (isInv) activeContent else contentColor,
+                backgroundColor = if (isInv) accentColor.copy(alpha = 0.35f) else cyanKeyBg,
+                contentColor = cyanKeyText,
+                borderColor = cyanKeyBorder,
+                borderWidth = 1.4.dp,
                 fontSize = 13.sp,
                 shape = buttonShape,
                 testTag = "btn_inv",
@@ -88,8 +107,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = "hyp",
-                backgroundColor = if (isHyp) activeBg else surfaceColor,
-                contentColor = if (isHyp) activeContent else contentColor,
+                backgroundColor = if (isHyp) accentColor.copy(alpha = 0.35f) else purpleKeyBg,
+                contentColor = purpleKeyText,
+                borderColor = purpleKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 13.sp,
                 shape = buttonShape,
                 testTag = "btn_hyp",
@@ -99,8 +120,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = sinLabel,
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = purpleKeyBg,
+                contentColor = purpleKeyText,
+                borderColor = purpleKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 13.sp,
                 shape = buttonShape,
                 testTag = "btn_sin",
@@ -110,8 +133,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = cosLabel,
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = purpleKeyBg,
+                contentColor = purpleKeyText,
+                borderColor = purpleKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 13.sp,
                 shape = buttonShape,
                 testTag = "btn_cos",
@@ -121,8 +146,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = tanLabel,
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = purpleKeyBg,
+                contentColor = purpleKeyText,
+                borderColor = purpleKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 13.sp,
                 shape = buttonShape,
                 testTag = "btn_tan",
@@ -138,8 +165,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = if (isInv) "eˣ" else "ln",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = blueKeyBg,
+                contentColor = blueKeyText,
+                borderColor = blueKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 13.sp,
                 shape = buttonShape,
                 testTag = "btn_ln",
@@ -156,8 +185,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = if (isInv) "10ˣ" else "log",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = purpleKeyBg,
+                contentColor = purpleKeyText,
+                borderColor = purpleKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 13.sp,
                 shape = buttonShape,
                 testTag = "btn_log",
@@ -174,8 +205,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = if (isInv) "x²" else "log₂",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = purpleKeyBg,
+                contentColor = purpleKeyText,
+                borderColor = purpleKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 13.sp,
                 shape = buttonShape,
                 testTag = "btn_log2",
@@ -191,8 +224,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = "√",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = tealKeyBg,
+                contentColor = tealKeyText,
+                borderColor = tealKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 16.sp,
                 shape = buttonShape,
                 testTag = "btn_sqrt",
@@ -202,8 +237,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = "xʸ",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = tealKeyBg,
+                contentColor = tealKeyText,
+                borderColor = tealKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 15.sp,
                 shape = buttonShape,
                 testTag = "btn_power",
@@ -211,7 +248,7 @@ fun ScientificKeypad(
             )
         }
 
-        // Row 3: π, e, n!, (, )
+        // Row 3: π, e, x!, (, )
         Row(
             modifier = Modifier.fillMaxWidth().height(46.dp),
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
@@ -219,8 +256,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = "π",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = tealKeyBg,
+                contentColor = tealKeyText,
+                borderColor = tealKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 16.sp,
                 shape = buttonShape,
                 testTag = "btn_pi",
@@ -230,8 +269,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = "e",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = tealKeyBg,
+                contentColor = tealKeyText,
+                borderColor = tealKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 16.sp,
                 shape = buttonShape,
                 testTag = "btn_e",
@@ -241,8 +282,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = "x!",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = purpleKeyBg,
+                contentColor = purpleKeyText,
+                borderColor = purpleKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 15.sp,
                 shape = buttonShape,
                 testTag = "btn_factorial",
@@ -252,8 +295,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = "(",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = purpleKeyBg,
+                contentColor = purpleKeyText,
+                borderColor = purpleKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 16.sp,
                 shape = buttonShape,
                 testTag = "btn_open_paren",
@@ -263,8 +308,10 @@ fun ScientificKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f),
                 text = ")",
-                backgroundColor = surfaceColor,
-                contentColor = contentColor,
+                backgroundColor = purpleKeyBg,
+                contentColor = purpleKeyText,
+                borderColor = purpleKeyBorder,
+                borderWidth = 1.3.dp,
                 fontSize = 16.sp,
                 shape = buttonShape,
                 testTag = "btn_close_paren",

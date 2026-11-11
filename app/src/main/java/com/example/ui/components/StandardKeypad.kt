@@ -42,17 +42,32 @@ fun StandardKeypad(
     val buttonShape = RoundedCornerShape(22.dp)
     val accentColor = LocalAccentColor.current
 
-    // Keypad Colors matching screenshot with dynamic Theme Engine accent
-    val operatorBg = com.example.ui.theme.CyberAmberBg
-    val operatorText = com.example.ui.theme.CyberAmber
-    val specialBg = com.example.ui.theme.CyberPurpleBg
-    val specialText = com.example.ui.theme.CyberPurple
-    val numberBg = com.example.ui.theme.KeypadNumberBg
-    val numberText = com.example.ui.theme.KeypadNumberText
-    val clearBg = com.example.ui.theme.CyberCrimsonBg
-    val clearText = com.example.ui.theme.CyberCrimson
-    val equalsBg = accentColor
-    val equalsText = Color(0xFF002530)
+    // Cyber Keypad Colors strictly matching the reference design image
+    val operatorBg = Color(0xFF26170A)
+    val operatorBorder = Color(0xFFFF9800)
+    val operatorText = Color(0xFFFFAB40)
+
+    val specialBg = Color(0xFF1A1226)
+    val specialBorder = Color(0xFFAB47BC)
+    val specialText = Color(0xFFCE93D8)
+
+    val numberBg = Color(0xFF121722)
+    val numberBorder = Color(0xFF263248)
+    val numberText = Color(0xFFF1F5F9)
+
+    val clearBg = Color(0xFF2B0E14)
+    val clearBorder = Color(0xFFFF3B5C)
+    val clearText = Color(0xFFFF5252)
+
+    val equalsBrush = androidx.compose.ui.graphics.Brush.verticalGradient(
+        colors = listOf(
+            accentColor,
+            Color(0xFF00B0FF),
+            Color(0xFF0091EA)
+        )
+    )
+    val equalsBorder = Color(0xFF80D8FF)
+    val equalsText = Color(0xFF00222C)
 
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -68,6 +83,7 @@ fun StandardKeypad(
                 text = "AC",
                 backgroundColor = clearBg,
                 contentColor = clearText,
+                borderColor = clearBorder,
                 fontSize = 22.sp,
                 shape = buttonShape,
                 testTag = "btn_clear",
@@ -79,6 +95,7 @@ fun StandardKeypad(
                 text = "±",
                 backgroundColor = specialBg,
                 contentColor = specialText,
+                borderColor = specialBorder,
                 fontSize = 24.sp,
                 shape = buttonShape,
                 testTag = "btn_toggle_sign",
@@ -90,6 +107,7 @@ fun StandardKeypad(
                 text = "%",
                 backgroundColor = specialBg,
                 contentColor = specialText,
+                borderColor = specialBorder,
                 fontSize = 22.sp,
                 shape = buttonShape,
                 testTag = "btn_percentage",
@@ -101,6 +119,7 @@ fun StandardKeypad(
                 text = "÷",
                 backgroundColor = operatorBg,
                 contentColor = operatorText,
+                borderColor = operatorBorder,
                 fontSize = 28.sp,
                 shape = buttonShape,
                 testTag = "btn_divide",
@@ -118,6 +137,7 @@ fun StandardKeypad(
                 text = "7",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_7",
@@ -129,6 +149,7 @@ fun StandardKeypad(
                 text = "8",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_8",
@@ -140,6 +161,7 @@ fun StandardKeypad(
                 text = "9",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_9",
@@ -151,6 +173,7 @@ fun StandardKeypad(
                 text = "×",
                 backgroundColor = operatorBg,
                 contentColor = operatorText,
+                borderColor = operatorBorder,
                 fontSize = 28.sp,
                 shape = buttonShape,
                 testTag = "btn_multiply",
@@ -168,6 +191,7 @@ fun StandardKeypad(
                 text = "4",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_4",
@@ -179,6 +203,7 @@ fun StandardKeypad(
                 text = "5",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_5",
@@ -190,6 +215,7 @@ fun StandardKeypad(
                 text = "6",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_6",
@@ -201,6 +227,7 @@ fun StandardKeypad(
                 text = "−",
                 backgroundColor = operatorBg,
                 contentColor = operatorText,
+                borderColor = operatorBorder,
                 fontSize = 28.sp,
                 shape = buttonShape,
                 testTag = "btn_subtract",
@@ -218,6 +245,7 @@ fun StandardKeypad(
                 text = "1",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_1",
@@ -229,6 +257,7 @@ fun StandardKeypad(
                 text = "2",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_2",
@@ -240,6 +269,7 @@ fun StandardKeypad(
                 text = "3",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_3",
@@ -251,6 +281,7 @@ fun StandardKeypad(
                 text = "+",
                 backgroundColor = operatorBg,
                 contentColor = operatorText,
+                borderColor = operatorBorder,
                 fontSize = 28.sp,
                 shape = buttonShape,
                 testTag = "btn_add",
@@ -268,6 +299,7 @@ fun StandardKeypad(
                 icon = Icons.AutoMirrored.Filled.Backspace,
                 backgroundColor = specialBg,
                 contentColor = specialText,
+                borderColor = specialBorder,
                 shape = buttonShape,
                 testTag = "btn_backspace",
                 onClick = onBackspace
@@ -278,6 +310,7 @@ fun StandardKeypad(
                 text = "0",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 26.sp,
                 shape = buttonShape,
                 testTag = "btn_0",
@@ -289,6 +322,7 @@ fun StandardKeypad(
                 text = ".",
                 backgroundColor = numberBg,
                 contentColor = numberText,
+                borderColor = numberBorder,
                 fontSize = 28.sp,
                 shape = buttonShape,
                 testTag = "btn_decimal",
@@ -298,8 +332,10 @@ fun StandardKeypad(
             CalculatorButton(
                 modifier = Modifier.weight(1f).fillMaxHeight(),
                 text = "=",
-                backgroundColor = equalsBg,
+                backgroundBrush = equalsBrush,
                 contentColor = equalsText,
+                borderColor = equalsBorder,
+                borderWidth = 1.6.dp,
                 fontSize = 30.sp,
                 shape = buttonShape,
                 testTag = "btn_equals",

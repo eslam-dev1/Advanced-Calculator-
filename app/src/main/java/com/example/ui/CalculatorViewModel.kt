@@ -81,10 +81,10 @@ data class CalculatorUiState(
     // Sound Feedback State
     val isSoundEnabled: Boolean = true,
 
-    // Power Saving State
-    val isPowerSavingEnabled: Boolean = true,
+    // Power Saving State (disabled by default to maintain full glowing UI)
+    val isPowerSavingEnabled: Boolean = false,
     val isPowerSavingActive: Boolean = false,
-    val powerSavingTimeoutMs: Long = 60_000L, // 1 minute of inactivity
+    val powerSavingTimeoutMs: Long = 180_000L, // 3 minutes of inactivity if enabled
     val historySearchQuery: String = "",
     val isVoiceListening: Boolean = false,
     val isCurrencyLive: Boolean = false,

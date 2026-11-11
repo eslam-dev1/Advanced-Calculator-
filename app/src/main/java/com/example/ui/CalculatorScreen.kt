@@ -142,55 +142,60 @@ fun CalculatorScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 8.dp, vertical = 6.dp),
+                            .padding(horizontal = 4.dp, vertical = 4.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                             IconButton(
                                 onClick = { viewModel.onShowSettings(true) },
-                                modifier = Modifier.testTag("btn_settings")
+                                modifier = Modifier.size(36.dp).testTag("btn_settings")
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Settings,
                                     contentDescription = "Settings",
                                     tint = iconTint,
-                                    modifier = Modifier.size(22.dp)
+                                    modifier = Modifier.size(20.dp)
                                 )
                             }
                             IconButton(
                                 onClick = { viewModel.onToggleMiniOverlayMode() },
-                                modifier = Modifier.testTag("btn_mini_overlay")
+                                modifier = Modifier.size(36.dp).testTag("btn_mini_overlay")
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Calculate,
                                     contentDescription = androidx.compose.ui.res.stringResource(com.example.R.string.mini_calculator_overlay),
                                     tint = if (uiState.isMiniOverlayMode) accentColor else iconTint,
-                                    modifier = Modifier.size(22.dp)
+                                    modifier = Modifier.size(20.dp)
                                 )
                             }
                             IconButton(
                                 onClick = { (context as? MainActivity)?.triggerPip() },
-                                modifier = Modifier.testTag("btn_pip")
+                                modifier = Modifier.size(36.dp).testTag("btn_pip")
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.PictureInPicture,
                                     contentDescription = "Picture in Picture",
                                     tint = iconTint,
-                                    modifier = Modifier.size(22.dp)
+                                    modifier = Modifier.size(20.dp)
                                 )
                             }
                         }
 
+                        // Oscilloscope wave canvas matching preview mockup
+                        com.example.ui.components.OscilloscopeVisualizer(
+                            modifier = Modifier.padding(horizontal = 6.dp)
+                        )
+
                         IconButton(
                             onClick = { viewModel.onToggleScientific() },
-                            modifier = Modifier.testTag("btn_toggle_scientific")
+                            modifier = Modifier.size(36.dp).testTag("btn_toggle_scientific")
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Science,
                                 contentDescription = "Scientific Keypad",
                                 tint = if (uiState.isScientificExpanded) accentColor else iconTint,
-                                modifier = Modifier.size(22.dp)
+                                modifier = Modifier.size(20.dp)
                             )
                         }
                     }

@@ -8,6 +8,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -237,6 +238,7 @@ fun MainContainerScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.55f))
+                        .clickable { viewModel.onUserInteraction() }
                         .testTag("power_saving_overlay"),
                     contentAlignment = Alignment.TopCenter
                 ) {

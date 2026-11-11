@@ -48,8 +48,11 @@ fun CalculatorButton(
     modifier: Modifier = Modifier,
     text: String? = null,
     icon: ImageVector? = null,
-    backgroundColor: Color,
+    backgroundColor: Color = Color.Transparent,
+    backgroundBrush: androidx.compose.ui.graphics.Brush? = null,
     contentColor: Color,
+    borderColor: Color? = null,
+    borderWidth: Dp = 1.2.dp,
     fontSize: TextUnit = 24.sp,
     fontWeight: FontWeight = FontWeight.SemiBold,
     shape: androidx.compose.ui.graphics.Shape = RoundedCornerShape(20.dp),
@@ -68,16 +71,22 @@ fun CalculatorButton(
         label = "button_scale"
     )
 
-    val currentBgColor = if (isPressed) {
-        backgroundColor.copy(alpha = 0.75f)
+    val currentBgModifier = if (backgroundBrush != null) {
+        Modifier.background(backgroundBrush)
     } else {
-        backgroundColor
+        val currentBgColor = if (isPressed) {
+            backgroundColor.copy(alpha = 0.85f)
+        } else {
+            backgroundColor
+        }
+        Modifier.background(currentBgColor)
     }
 
-    val borderColor = if (isPressed) {
-        contentColor.copy(alpha = 0.5f)
+    val activeBorderColor = borderColor ?: contentColor
+    val calculatedBorder = if (isPressed) {
+        activeBorderColor.copy(alpha = 0.95f)
     } else {
-        contentColor.copy(alpha = 0.15f)
+        activeBorderColor.copy(alpha = 0.65f)
     }
 
     val isSoundEnabled = com.example.ui.theme.LocalSoundEnabled.current
@@ -88,8 +97,8 @@ fun CalculatorButton(
             .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
             .scale(scale)
             .clip(shape)
-            .background(currentBgColor)
-            .border(1.dp, borderColor, shape)
+            .then(currentBgModifier)
+            .border(borderWidth, calculatedBorder, shape)
             .clickable(
                 interactionSource = interactionSource,
                 indication = ripple(

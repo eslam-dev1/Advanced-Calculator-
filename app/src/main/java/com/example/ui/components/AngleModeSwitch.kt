@@ -77,15 +77,22 @@ fun AngleModeSwitch(
                 .fillMaxHeight()
                 .offset(x = segmentWidth * indicatorOffsetFraction)
                 .clip(RoundedCornerShape(14.dp))
-                .background(accentColor.copy(alpha = 0.25f))
-                .border(1.dp, accentColor.copy(alpha = 0.6f), RoundedCornerShape(14.dp))
+                .background(
+                    androidx.compose.ui.graphics.Brush.verticalGradient(
+                        colors = listOf(
+                            accentColor,
+                            Color(0xFF00B0FF)
+                        )
+                    )
+                )
+                .border(1.dp, Color(0xFF80D8FF), RoundedCornerShape(14.dp))
         )
 
         // Touch segments row
         Row(modifier = Modifier.fillMaxSize()) {
             // DEG Option
             val degTextColor by animateColorAsState(
-                targetValue = if (isDegreeMode) accentColor else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                targetValue = if (isDegreeMode) Color(0xFF00222C) else Color(0xFF80D8FF).copy(alpha = 0.6f),
                 label = "deg_color"
             )
 
@@ -108,14 +115,14 @@ fun AngleModeSwitch(
                 Text(
                     text = androidx.compose.ui.res.stringResource(com.example.R.string.deg_deg),
                     fontSize = 12.sp,
-                    fontWeight = if (isDegreeMode) FontWeight.Bold else FontWeight.Medium,
+                    fontWeight = FontWeight.Bold,
                     color = degTextColor
                 )
             }
 
             // RAD Option
             val radTextColor by animateColorAsState(
-                targetValue = if (!isDegreeMode) accentColor else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                targetValue = if (!isDegreeMode) Color(0xFF00222C) else Color(0xFF80D8FF).copy(alpha = 0.6f),
                 label = "rad_color"
             )
 
@@ -138,7 +145,7 @@ fun AngleModeSwitch(
                 Text(
                     text = androidx.compose.ui.res.stringResource(com.example.R.string.rad_rad),
                     fontSize = 12.sp,
-                    fontWeight = if (!isDegreeMode) FontWeight.Bold else FontWeight.Medium,
+                    fontWeight = FontWeight.Bold,
                     color = radTextColor
                 )
             }
