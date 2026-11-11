@@ -1,0 +1,6 @@
+{
+  "name": "Smart Calculator",
+  "description": "آلة حاسبة علمية متكاملة وسريعة مع سجل للعمليات الحسابية وتصميم داكن عصري أنيق.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

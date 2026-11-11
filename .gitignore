@@ -1,0 +1,39 @@
+*.iml
+.gradle
+.kotlin
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+.env
+debug.keystore
+debug.keystore.base64
+
+# Gradle artifacts
+.gradle/
+build/
+
+# Android Studio artifacts
+*.iml
+.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Generated files
+/app/build/
+/build/
+
+# Secrets
+.env
+local.properties
+google-services.json
