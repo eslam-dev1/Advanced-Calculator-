@@ -159,6 +159,17 @@ fun CalculatorScreen(
                                 )
                             }
                             IconButton(
+                                onClick = { viewModel.onToggleMiniOverlayMode() },
+                                modifier = Modifier.testTag("btn_mini_overlay")
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Calculate,
+                                    contentDescription = androidx.compose.ui.res.stringResource(com.example.R.string.mini_calculator_overlay),
+                                    tint = if (uiState.isMiniOverlayMode) accentColor else iconTint,
+                                    modifier = Modifier.size(22.dp)
+                                )
+                            }
+                            IconButton(
                                 onClick = { (context as? MainActivity)?.triggerPip() },
                                 modifier = Modifier.testTag("btn_pip")
                             ) {
@@ -288,9 +299,11 @@ fun CalculatorScreen(
                 accentColors = viewModel.availableAccentColors,
                 backgroundTheme = uiState.backgroundTheme,
                 isPowerSavingEnabled = uiState.isPowerSavingEnabled,
+                isSoundEnabled = uiState.isSoundEnabled,
                 onSelectColor = { viewModel.onSelectAccentColor(it) },
                 onSelectBackgroundTheme = { viewModel.onSelectBackgroundTheme(it) },
                 onTogglePowerSaving = { viewModel.onTogglePowerSavingEnabled(it) },
+                onToggleSound = { viewModel.onToggleSoundEnabled(it) },
                 onDismiss = { viewModel.onShowSettings(false) }
             )
         }

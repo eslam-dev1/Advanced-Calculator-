@@ -8,6 +8,7 @@ import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
@@ -58,7 +59,8 @@ fun CalculatorButton(
     val haptic = LocalHapticFeedback.current
     val view = androidx.compose.ui.platform.LocalView.current
     val isPowerSaving = com.example.ui.theme.LocalPowerSavingMode.current
-    var isPressed by remember { mutableStateOf(false) }
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
 
     val scale by animateFloatAsState(
         targetValue = if (isPressed && !isPowerSaving) 0.92f else 1.0f,
@@ -73,10 +75,12 @@ fun CalculatorButton(
     }
 
     val borderColor = if (isPressed) {
-        contentColor.copy(alpha = 0.4f)
+        contentColor.copy(alpha = 0.5f)
     } else {
-        contentColor.copy(alpha = 0.12f)
+        contentColor.copy(alpha = 0.15f)
     }
+
+    val isSoundEnabled = com.example.ui.theme.LocalSoundEnabled.current
 
     Box(
         modifier = modifier
@@ -86,21 +90,23 @@ fun CalculatorButton(
             .clip(shape)
             .background(currentBgColor)
             .border(1.dp, borderColor, shape)
-            .pointerInput(isPowerSaving) {
-                awaitEachGesture {
-                    awaitFirstDown()
-                    isPressed = true
+            .clickable(
+                interactionSource = interactionSource,
+                indication = ripple(
+                    bounded = true,
+                    color = contentColor
+                ),
+                onClick = {
                     if (!isPowerSaving) {
                         view.performHapticFeedback(android.view.HapticFeedbackConstants.KEYBOARD_TAP)
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        if (isSoundEnabled) {
+                            view.playSoundEffect(android.view.SoundEffectConstants.CLICK)
+                        }
                     }
-                    val up = waitForUpOrCancellation()
-                    isPressed = false
-                    if (up != null) {
-                        onClick()
-                    }
+                    onClick()
                 }
-            }
+            )
             .testTag(testTag),
         contentAlignment = Alignment.Center
     ) {

@@ -20,12 +20,14 @@ import androidx.compose.runtime.getValue
 
 val LocalAccentColor = compositionLocalOf { NeonCyan }
 val LocalPowerSavingMode = compositionLocalOf { false }
+val LocalSoundEnabled = compositionLocalOf { true }
 
 @Composable
 fun SmartCalculatorTheme(
     accentColor: Color = NeonCyan,
     backgroundTheme: com.example.ui.BackgroundTheme = com.example.ui.BackgroundTheme.CHARCOAL,
     isPowerSaving: Boolean = false,
+    isSoundEnabled: Boolean = true,
     content: @Composable () -> Unit
 ) {
     // Distinct dark mode preset color palettes
@@ -101,7 +103,8 @@ fun SmartCalculatorTheme(
 
     CompositionLocalProvider(
         LocalAccentColor provides animatedAccentColor,
-        LocalPowerSavingMode provides isPowerSaving
+        LocalPowerSavingMode provides isPowerSaving,
+        LocalSoundEnabled provides isSoundEnabled
     ) {
         MaterialTheme(
             colorScheme = colorScheme,

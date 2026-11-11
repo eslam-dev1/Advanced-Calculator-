@@ -20,6 +20,11 @@
     <string name="tab_grapher">الرسم البياني</string>
     <string name="scientific_precision_instant">علمية • دقيقة • فورية</string>
     <string name="floating_window">النافذة العائمة</string>
+    <string name="mini_calculator">الحاسبة المصغرة</string>
+    <string name="mini_calculator_overlay">النافذة العلوية المصغرة</string>
+    <string name="mini_calculator_tooltip">الحاسبة المصغرة العائمة</string>
+    <string name="mini_calculator_expand">توسيع</string>
+    <string name="mini_calculator_close">إغلاق</string>
     <string name="settings">الإعدادات</string>
     <string name="share_result">مشاركة النتيجة</string>
     <string name="scientific_operations">العمليات العلمية</string>
@@ -62,6 +67,8 @@
     <string name="power_saving_mode">وضع توفير الطاقة نشط (انقر للمتابعة)</string>
     <string name="power_saving_mode_desc">تقليل تحديثات الواجهة تلقائياً عند عدم الاستخدام لتوفير البطارية.</string>
     <string name="power_saving_toggle">توفير الطاقة</string>
+    <string name="sound_effects_toggle">التأثيرات الصوتية للأزرار</string>
+    <string name="sound_effects_desc">تشغيل صوت نقر خفيف ومريح عند الضغط على أزرار الحاسبة.</string>
     <string name="theme_charcoal">الفحمي العميق</string>
     <string name="theme_midnight">أزرق منتصف الليل</string>
     <string name="theme_pitch_black">الأسود الداكن (OLED)</string>

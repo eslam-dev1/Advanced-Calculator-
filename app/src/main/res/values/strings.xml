@@ -20,6 +20,11 @@
     <string name="tab_grapher">Grapher</string>
     <string name="scientific_precision_instant">Scientific • Precise • Instant</string>
     <string name="floating_window">Floating Window</string>
+    <string name="mini_calculator">Mini Calculator</string>
+    <string name="mini_calculator_overlay">Mini Overlay</string>
+    <string name="mini_calculator_tooltip">Floating Mini Calculator</string>
+    <string name="mini_calculator_expand">Expand Full</string>
+    <string name="mini_calculator_close">Close</string>
     <string name="settings">Settings</string>
     <string name="share_result">Share Result</string>
     <string name="scientific_operations">Scientific Ops</string>
@@ -62,6 +67,8 @@
     <string name="power_saving_mode">Power Saving Mode Active (Tap to resume)</string>
     <string name="power_saving_mode_desc">Automatically reduce UI updates after inactivity to save battery.</string>
     <string name="power_saving_toggle">Energy Saving</string>
+    <string name="sound_effects_toggle">Keypad Sound Effects</string>
+    <string name="sound_effects_desc">Play light clicking sound when tapping calculator buttons.</string>
     <string name="theme_charcoal">Deep Charcoal</string>
     <string name="theme_midnight">Midnight Blue</string>
     <string name="theme_pitch_black">Pitch Black (OLED)</string>

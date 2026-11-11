@@ -47,6 +47,7 @@ import com.example.ui.theme.DisplayResultColor
 import com.example.ui.theme.ErrorColor
 import com.example.ui.theme.LocalAccentColor
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.graphics.Brush
 
 @Composable
 fun DisplaySection(
@@ -58,21 +59,37 @@ fun DisplaySection(
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
+    val resultScrollState = rememberScrollState()
     val accentColor = LocalAccentColor.current
-    val surfaceColor = com.example.ui.theme.DarkSurface.copy(alpha = 0.85f)
-    val borderColor = accentColor.copy(alpha = 0.35f)
 
-    // Auto-scroll to end whenever expression changes
-    LaunchedEffect(uiState.expression) {
+    // Glowing vibrant LCD screen gradient matching the reference design
+    val lcdBackgroundBrush = Brush.verticalGradient(
+        colors = listOf(
+            accentColor.copy(alpha = 0.15f),
+            Color(0xFF0D1424),
+            Color(0xFF090E18)
+        )
+    )
+    val lcdBorderBrush = Brush.linearGradient(
+        colors = listOf(
+            accentColor.copy(alpha = 0.85f),
+            accentColor.copy(alpha = 0.25f),
+            Color(0xFF00E5FF).copy(alpha = 0.6f)
+        )
+    )
+
+    // Auto-scroll result to the end so user always sees the latest entered digits
+    LaunchedEffect(uiState.expression, uiState.finalResult, uiState.previewResult) {
         scrollState.animateScrollTo(scrollState.maxValue)
+        resultScrollState.animateScrollTo(resultScrollState.maxValue)
     }
 
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(24.dp))
-            .background(surfaceColor)
-            .border(1.5.dp, borderColor, RoundedCornerShape(24.dp))
+            .clip(RoundedCornerShape(26.dp))
+            .background(lcdBackgroundBrush)
+            .border(2.dp, lcdBorderBrush, RoundedCornerShape(26.dp))
             .padding(horizontal = 18.dp, vertical = 14.dp)
     ) {
         Column(
@@ -98,7 +115,7 @@ fun DisplaySection(
                         Icon(
                             imageVector = if (uiState.isVoiceListening) Icons.Default.Mic else Icons.Default.MicNone,
                             contentDescription = "Voice Input",
-                            tint = if (uiState.isVoiceListening) accentColor else com.example.ui.theme.DisplayFormulaColor,
+                            tint = if (uiState.isVoiceListening) accentColor else Color(0xFF64748B),
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -109,7 +126,7 @@ fun DisplaySection(
                         Icon(
                             imageVector = Icons.Default.History,
                             contentDescription = "History",
-                            tint = com.example.ui.theme.DisplayFormulaColor,
+                            tint = Color(0xFF64748B),
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -128,19 +145,20 @@ fun DisplaySection(
                 val exprText = if (uiState.expression.isEmpty()) "" else uiState.expression
                 VisualEquationRenderer(
                     expression = exprText,
-                    color = com.example.ui.theme.CyberAmber.copy(alpha = 0.9f),
-                    fontSize = 22.sp,
+                    color = com.example.ui.theme.CyberAmber.copy(alpha = 0.95f),
+                    fontSize = 20.sp,
                     modifier = Modifier.testTag("expression_display")
                 )
             }
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // Result / Live Preview Display with dynamic accent text and blinking cursor
+            // Result / Live Preview Display with full visibility (horizontal scroll + adaptive sizing)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 2.dp),
+                    .padding(bottom = 2.dp)
+                    .horizontalScroll(resultScrollState),
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -155,17 +173,17 @@ fun DisplaySection(
                 val resultColor = when {
                     uiState.errorMessage != null -> ErrorColor
                     uiState.finalResult != null -> accentColor
-                    else -> accentColor.copy(alpha = 0.85f)
+                    else -> accentColor.copy(alpha = 0.9f)
                 }
 
                 val len = resultText.length
                 val (fontSize, lineHeight) = when {
-                    len > 20 -> 18.sp to 24.sp
-                    len > 15 -> 22.sp to 28.sp
-                    len > 12 -> 28.sp to 34.sp
-                    len > 9 -> 34.sp to 40.sp
-                    len > 6 -> 42.sp to 48.sp
-                    else -> 52.sp to 58.sp
+                    len > 22 -> 20.sp to 26.sp
+                    len > 16 -> 24.sp to 30.sp
+                    len > 12 -> 30.sp to 36.sp
+                    len > 8 -> 38.sp to 44.sp
+                    len > 5 -> 44.sp to 50.sp
+                    else -> 50.sp to 56.sp
                 }
 
                 val displayText = if (uiState.finalResult != null || uiState.previewResult != null) resultText else if (uiState.expression.isEmpty()) "0" else ""
@@ -176,9 +194,10 @@ fun DisplaySection(
                     fontSize = fontSize,
                     lineHeight = lineHeight,
                     fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.SansSerif,
                     textAlign = TextAlign.End,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                    softWrap = false,
                     modifier = Modifier.testTag("result_display")
                 )
             }

@@ -49,9 +49,11 @@ fun SettingsBottomSheet(
     accentColors: List<Color>,
     backgroundTheme: com.example.ui.BackgroundTheme,
     isPowerSavingEnabled: Boolean,
+    isSoundEnabled: Boolean = true,
     onSelectColor: (Int) -> Unit,
     onSelectBackgroundTheme: (com.example.ui.BackgroundTheme) -> Unit,
     onTogglePowerSaving: (Boolean) -> Unit,
+    onToggleSound: (Boolean) -> Unit = {},
     onDismiss: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -216,6 +218,43 @@ fun SettingsBottomSheet(
                 androidx.compose.material3.Switch(
                     checked = isPowerSavingEnabled,
                     onCheckedChange = onTogglePowerSaving,
+                    colors = androidx.compose.material3.SwitchDefaults.colors(
+                        checkedThumbColor = NeonCyan,
+                        checkedTrackColor = NeonCyan.copy(alpha = 0.3f),
+                        uncheckedThumbColor = DisplayFormulaColor.copy(alpha = 0.5f),
+                        uncheckedTrackColor = DarkSurface
+                    )
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Sound Effects Toggle Row
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(DarkSurfaceElevated.copy(alpha = 0.4f))
+                    .padding(14.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = androidx.compose.ui.res.stringResource(com.example.R.string.sound_effects_toggle),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = DisplayResultColor
+                    )
+                    Text(
+                        text = androidx.compose.ui.res.stringResource(com.example.R.string.sound_effects_desc),
+                        fontSize = 11.sp,
+                        color = DisplayFormulaColor.copy(alpha = 0.6f)
+                    )
+                }
+                androidx.compose.material3.Switch(
+                    checked = isSoundEnabled,
+                    onCheckedChange = onToggleSound,
                     colors = androidx.compose.material3.SwitchDefaults.colors(
                         checkedThumbColor = NeonCyan,
                         checkedTrackColor = NeonCyan.copy(alpha = 0.3f),

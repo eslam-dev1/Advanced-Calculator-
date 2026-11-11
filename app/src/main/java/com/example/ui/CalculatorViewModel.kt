@@ -75,6 +75,12 @@ data class CalculatorUiState(
     // PiP Mode State
     val isInPipMode: Boolean = false,
 
+    // Mini Calculator Overlay Mode (draggable floating window over other views)
+    val isMiniOverlayMode: Boolean = false,
+
+    // Sound Feedback State
+    val isSoundEnabled: Boolean = true,
+
     // Power Saving State
     val isPowerSavingEnabled: Boolean = true,
     val isPowerSavingActive: Boolean = false,
@@ -153,6 +159,10 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
             kotlinx.coroutines.delay(_uiState.value.powerSavingTimeoutMs)
             _uiState.update { it.copy(isPowerSavingActive = true) }
         }
+    }
+
+    fun onToggleSoundEnabled(enabled: Boolean) {
+        _uiState.update { it.copy(isSoundEnabled = enabled) }
     }
 
     fun onTogglePowerSavingEnabled(enabled: Boolean) {
@@ -851,6 +861,13 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
 
     fun onUpdatePipMode(inPip: Boolean) {
         _uiState.update { it.copy(isInPipMode = inPip) }
+    }
+
+    fun onToggleMiniOverlayMode(enabled: Boolean? = null) {
+        _uiState.update { state ->
+            val nextState = enabled ?: !state.isMiniOverlayMode
+            state.copy(isMiniOverlayMode = nextState)
+        }
     }
 
     fun onSelectBackgroundTheme(theme: BackgroundTheme) {

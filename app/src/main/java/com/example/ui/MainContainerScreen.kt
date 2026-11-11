@@ -94,7 +94,8 @@ fun MainContainerScreen(
     SmartCalculatorTheme(
         accentColor = activeAccentColor,
         backgroundTheme = uiState.backgroundTheme,
-        isPowerSaving = uiState.isPowerSavingActive
+        isPowerSaving = uiState.isPowerSavingActive,
+        isSoundEnabled = uiState.isSoundEnabled
     ) {
         Box(
             modifier = Modifier
@@ -213,6 +214,21 @@ fun MainContainerScreen(
                         }
                     }
                 }
+            }
+
+            // Floating Mini Calculator Overlay (stays on top of screens for quick calculations)
+            if (!uiState.isInPipMode) {
+                com.example.ui.components.MiniCalculatorOverlay(
+                    uiState = uiState,
+                    onDigit = { viewModel.onDigit(it) },
+                    onOperator = { viewModel.onOperator(it) },
+                    onDecimalPoint = { viewModel.onDecimalPoint() },
+                    onClear = { viewModel.onClear() },
+                    onBackspace = { viewModel.onBackspace() },
+                    onEquals = { viewModel.onEquals() },
+                    onClose = { viewModel.onToggleMiniOverlayMode(false) },
+                    modifier = Modifier.align(Alignment.Center)
+                )
             }
 
             // Power Saving Dimming Overlay (Covers the whole screen including bottom bar)

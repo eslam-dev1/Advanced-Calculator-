@@ -60,7 +60,7 @@ class ExampleUnitTest {
         assertEquals("0", (tan0 as ExpressionEvaluator.EvalResult.Success).formatted)
 
         val tan90 = ExpressionEvaluator.evaluate("tan(90)", isDegreeMode = true)
-        assertTrue(tan90 is ExpressionEvaluator.EvalResult.Error)
+        assertTrue(tan90 is ExpressionEvaluator.EvalResult.Failure)
     }
 
     @Test
@@ -116,7 +116,7 @@ class ExampleUnitTest {
 
         // Log of negative or zero is error
         val logZero = ExpressionEvaluator.evaluate("log(0)", isDegreeMode = true)
-        assertTrue(logZero is ExpressionEvaluator.EvalResult.Error)
+        assertTrue(logZero is ExpressionEvaluator.EvalResult.Failure)
     }
 
     @Test
@@ -151,7 +151,7 @@ class ExampleUnitTest {
     @Test
     fun `divide by zero returns error`() {
         val result = ExpressionEvaluator.evaluate("10 ÷ 0", isDegreeMode = true)
-        assertTrue(result is ExpressionEvaluator.EvalResult.Error)
+        assertTrue(result is ExpressionEvaluator.EvalResult.Failure)
     }
 
     @Test

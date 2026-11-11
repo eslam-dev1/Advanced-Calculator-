@@ -5,26 +5,56 @@ on:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-    - name: set up JDK 17
+    - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
         cache: gradle
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
+    - name: Prepare environment and keystore
+      run: |
+        # Ensure .env exists for Secrets Gradle Plugin
+        if [ ! -f ".env" ]; then
+          echo "# Created for CI build" > .env
+        fi
+        
+        # Ensure debug.keystore exists in root for signingConfigs
+        if [ ! -f "debug.keystore" ]; then
+          echo "Generating standard debug.keystore..."
+          keytool -genkey -v \
+            -keystore debug.keystore \
+            -storepass android \
+            -alias androiddebugkey \
+            -keypass android \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Android Debug,O=Android,C=US"
+        fi
 
-    - name: Run Tests
-      run: ./gradlew testDebugUnitTest
+    - name: Run Unit Tests
+      run: ./gradlew testDebugUnitTest --stacktrace
+
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug --stacktrace
+
+    - name: Upload Debug APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: smart-calculator-debug-apk
+        path: app/build/outputs/apk/debug/*.apk
+        if-no-files-found: error
